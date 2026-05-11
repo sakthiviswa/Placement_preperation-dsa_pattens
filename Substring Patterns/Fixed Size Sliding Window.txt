@@ -1,0 +1,14 @@
+int left = 0;
+
+for(int right=0; right<n; right++){
+
+    // add current element
+
+    if(right-left+1 == k){
+
+        // process answer
+
+        // remove left element
+        left++;
+    }
+}
