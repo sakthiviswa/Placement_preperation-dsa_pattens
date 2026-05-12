@@ -1,0 +1,91 @@
+// You are using GCC
+#include<bits/stdc++.h>
+using namespace std;
+
+bool dfs(int node,
+         int parent,
+         vector<bool> &visited,
+         vector<vector<int>> &adj)
+{
+    visited[node] = true;
+
+    for(int nei : adj[node])
+    {
+        // Visit unvisited neighbor
+        if(!visited[nei])
+        {
+            if(dfs(nei, node, visited, adj))
+            {
+                return true;
+            }
+        }
+
+        // Visited neighbor not parent -> cycle
+        else if(nei != parent)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int main()
+{
+    int v, e;
+    cin >> v >> e;
+
+    vector<vector<int>> adj(v);
+
+    for(int i = 0; i < e; i++)
+    {
+        int u, vv;
+        cin >> u >> vv;
+
+        adj[u].push_back(vv);
+        adj[vv].push_back(u);
+    }
+
+    // Print graph
+    cout << "Adjacency List:\n";
+
+    for(int i = 0; i < v; i++)
+    {
+        cout << i << " -> ";
+
+        for(int nei : adj[i])
+        {
+            cout << nei << " ";
+        }
+
+        cout << "\n";
+    }
+
+    vector<bool> visited(v, false);
+
+    bool isCycle = false;
+
+    // Check all disconnected components
+    for(int i = 0; i < v; i++)
+    {
+        if(!visited[i])
+        {
+            if(dfs(i, -1, visited, adj))
+            {
+                isCycle = true;
+                break;
+            }
+        }
+    }
+
+    if(isCycle)
+    {
+        cout << "Cycle Found";
+    }
+    else
+    {
+        cout << "Cycle Not Found";
+    }
+
+    return 0;
+}
