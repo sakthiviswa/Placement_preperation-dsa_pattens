@@ -1,0 +1,24 @@
+class Solution {
+public:
+
+    vector<int> dp;
+
+    int solve(int state) {
+
+        // Base case
+        if(base_case)
+            return answer;
+
+        // Already computed
+        if(dp[state] != -1)
+            return dp[state];
+
+        // Compute
+        int ans = 0;
+
+        ans = recurrence_relation;
+
+        // Store
+        return dp[state] = ans;
+    }
+};
